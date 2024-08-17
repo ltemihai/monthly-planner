@@ -1,0 +1,15 @@
+section {
+    width: 100%;
+}
+
+.calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calendarHeader__buttons {
+    display: flex;
+    flex-direction: row;
+}

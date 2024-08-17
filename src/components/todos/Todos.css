@@ -1,0 +1,17 @@
+section {
+    width: 100%;
+}
+
+.todos {
+    height: 25vh;
+    overflow-y: auto;
+    list-style-type: none;
+    padding: 0;
+}
+
+.todos__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}

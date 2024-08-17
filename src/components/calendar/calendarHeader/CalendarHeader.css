@@ -1,0 +1,8 @@
+.buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.calendarHeader__buttons__today {
+    margin-right: 1rem;
+}
