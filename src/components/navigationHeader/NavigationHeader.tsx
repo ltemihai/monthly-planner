@@ -17,7 +17,10 @@ const NavigationHeader = () => {
   return (
     <header>
         <h1>Calendar</h1>
-        <i onClick={toggleTheme}>Settings</i>
+        <label className="switch">
+          <input type="checkbox" onClick={toggleTheme} checked={theme === 'dark'} />
+          <span className="slider round"></span>
+        </label>
     </header>
   )
 }

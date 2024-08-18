@@ -3,12 +3,13 @@ table {
     border-collapse: collapse;
 }
 th, td {
-    border: 1px solid #000;
+    border: 1px solid var(--text-color);
     padding: 10px;
     text-align: center;
 }
 
 .calendarDays__emptyCell {
+    transition: background-color 0.3s ease-out;
     border: none;
 }
 
@@ -17,10 +18,12 @@ td {
 }
 
 .calendarDays__day--current {
-    background-color: #f0f0f0;
+    background-color: var(--current-day-background-color);
+    color: var(--current-day-text-color);
 }
 
 .calendarDays__day--selected {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--selected-background-color);
+    color: var(--selected-text-color);
+    transition: background-color 0.3s ease-out;
 }
