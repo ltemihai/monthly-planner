@@ -3,6 +3,9 @@
     flex-direction: row;
 }
 
-.calendarHeader__buttons__today {
-    margin-right: 1rem;
+.calendarHeader__text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }

@@ -1,6 +1,8 @@
 import React from 'react'
 import './Todo.css'
 import useCalendarState from '../../../state/calendarState';
+import { FaCheck } from 'react-icons/fa6';
+import Button from '../../shared/button/Button';
 
 type TodoProps = {
   todoId: string;
@@ -19,10 +21,10 @@ const Todo = (props: TodoProps) => {
     <li className={`todo ${props.isCompleted ? 'todo__completed' : ''}`}>
         <h3>{props.name}</h3>
         <div>
-            {!props.isCompleted && <button onClick={() => handleOnCompleteButton()}>Complete</button>}
+            {!props.isCompleted && <Button text='Complete' icon={<FaCheck></FaCheck>} onClick={() => handleOnCompleteButton()}/>}
         </div>
     </li>
   )
-} 
+}  
 
 export default Todo

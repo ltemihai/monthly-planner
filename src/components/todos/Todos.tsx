@@ -2,6 +2,8 @@ import React from 'react'
 import Todo from './todo/Todo'
 import './Todos.css'
 import useCalendarState from '../../state/calendarState'
+import { FaPlus } from 'react-icons/fa6'
+import Button from '../shared/button/Button'
 
 const Todos = () => {
 
@@ -19,7 +21,7 @@ const Todos = () => {
     <section>
       <div className='todos__header'>
         <h2>Todos</h2>
-        <button onClick={() => handleOnAddTodoButton()}>Add Todo</button>
+        <Button icon={<FaPlus></FaPlus>} text='Add' onClick={() => handleOnAddTodoButton()} />
       </div>
       
       {todos.length === 0 ? (

@@ -1,5 +1,6 @@
 import './CalendarHeader.css'
 import useCalendarState from '../../../state/calendarState'
+import { FaAngleLeft, FaAngleRight, FaCalendarDay } from "react-icons/fa6";
 
 const CalendarHeader = () => {
  
@@ -28,13 +29,12 @@ const CalendarHeader = () => {
 
   return (
     <div className='calendarHeader'>
-      <h2>{`${currentMonth.toLocaleString('default', { month: 'long' })} ${currentMonth.getFullYear()} `}</h2>
-  
-      <div className='calendarHeader__buttons'>
-        <button className='calendarHeader__buttons__today' onClick={() => handleToday()}>Today</button>
-        <button onClick={() => handleDecrementMonth()}>Previous</button>
-        <button onClick={() => handleIncrementMonth()}>Next</button>
+      <FaAngleLeft className='pointer' onClick={() => handleDecrementMonth()} />
+      <div className='calendarHeader__text'>
+        <h2>{`${currentMonth.toLocaleString('default', { month: 'long' })} ${currentMonth.getFullYear()} `}</h2>
+        <FaCalendarDay className='pointer' onClick={() => handleToday()} />
       </div>
+      <FaAngleRight className='pointer' onClick={() => handleIncrementMonth()} />
     </div>
   )
 }

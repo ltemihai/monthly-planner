@@ -3,7 +3,7 @@ import './NavigationHeader.css'
 
 const NavigationHeader = () => {
 
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
@@ -16,7 +16,7 @@ const NavigationHeader = () => {
 
   return (
     <header>
-        <h1>Calendar</h1>
+        <h1>The Board</h1>
         <label className="switch">
           <input type="checkbox" onClick={toggleTheme} checked={theme === 'dark'} />
           <span className="slider round"></span>
