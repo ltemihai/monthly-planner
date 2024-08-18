@@ -26,12 +26,17 @@ const Todos = () => {
         <p>No todos found.</p>
       ) : (
         <ul className='todos'>
-          {todos.map(todo => <Todo 
-          key={todo.id}
-          todoId={todo.id}
-          date={todo.date}
-          name={todo.text} 
-          isCompleted={todo.isCompleted} />)}
+          {todos
+            .sort((t1, t2) => (t1.isCompleted === t2.isCompleted) ? 0 : t1.isCompleted ? 1 : -1)
+            .map(todo => (
+              <Todo 
+                key={todo.id}
+                todoId={todo.id}
+                date={todo.date}
+                name={todo.text} 
+                isCompleted={todo.isCompleted} 
+              />
+            ))}
         </ul>
       )}
     </section>
