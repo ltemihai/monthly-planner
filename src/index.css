@@ -18,7 +18,7 @@ code {
   --text-color: #1C1C1C;
   --selected-background-color: #1C1C1C;
   --selected-text-color: #EAEAEA;
-  --current-day-background-color: #f0f0f0;
+  --current-day-background-color: #b7b7b7;
   --current-day-text-color: #1C1C1C;
 }
 
@@ -27,7 +27,7 @@ code {
   --text-color: #EAEAEA;
   --selected-background-color: #EAEAEA;
   --selected-text-color: #1C1C1C;
-  --current-day-background-color: #f0f0f0;
+  --current-day-background-color: #b7b7b7;
   --current-day-text-color: #1C1C1C;
 }
 
