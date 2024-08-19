@@ -12,16 +12,14 @@ import { useEffect } from 'react';
 
 const NavigationHeader = () => {
 
-
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, []);
-
   const calendarState = useCalendarState();
   const [showFirebaseModal, setShowFirebaseModal] = useState(false);
   const [showGptModal, setShowGptModal] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   const handleFirebaseSync = async (config: FirebaseConfig) => {
     setFirebaseConfig(config);
