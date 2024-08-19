@@ -68,6 +68,6 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  scroll-behavior: smooth;
+button {
+  font-family: "Fira Code", monospace;
 }

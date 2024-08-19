@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid';
+import { FirebaseService } from '../services/firebaseService';
+import debounce from 'debounce';
 
 type Todo = {
     id: string;
@@ -27,9 +29,14 @@ type CalendarState = {
     setNotes(date: string, text: string): void;
     addTodo(date: string,text: string): void;
     markTodo(id: string, date:string, isCompleted: boolean): void;
+    setState(
+        selectedDate: string,
+        currentDate: string,
+        todos: { [key: string]: Todo[] },
+        notes: { [key: string]: string },
+        meetings: { [key: string]: Meeting[] }
+    ): void;
 };
-
-
 
 const useCalendarState = create<CalendarState>((set) => {
     const storedState = localStorage.getItem('calendarState');
@@ -79,6 +86,20 @@ const useCalendarState = create<CalendarState>((set) => {
                     },
                 };
             }),
+        setState: (
+            selectedDate: string,
+            currentDate: string,
+            todos: { [key: string]: Todo[] },
+            notes: { [key: string]: string },
+            meetings: { [key: string]: Meeting[] }
+        ) => set({
+            selectedDate,
+            currentDate,
+            todos,
+            notes,
+            meetings
+        }
+        )
     };
 
     set(initialState);
@@ -127,11 +148,58 @@ const useCalendarState = create<CalendarState>((set) => {
                     },
                 };
             }),
+        setState: (
+            selectedDate: string,
+            currentDate: string,
+            todos: { [key: string]: Todo[] },
+            notes: { [key: string]: string },
+            meetings: { [key: string]: Meeting[] }
+        ) => set({
+            selectedDate,
+            currentDate,
+            todos,
+            notes,
+            meetings
+        }
+        )
     };
 });
 
-useCalendarState.subscribe((state) => {
-    localStorage.setItem('calendarState', JSON.stringify(state));
+if (localStorage.getItem('firebaseConfig')) {
+    FirebaseService().getFirestoreData().then(() => {
+        const data = JSON.parse(localStorage.getItem('calendarState')!);
+        useCalendarState.setState({
+            selectedDate: data.selectedDate,
+            currentDate: data.currentDate,
+            todos: data.todos,
+            notes: data.notes,
+            meetings: data.meetings
+        }
+        );
+    });
+}
+
+useCalendarState.subscribe(async (state) => {
+    localStorage.setItem('calendarState', JSON.stringify({
+        selectedDate: state.selectedDate,
+        currentDate: state.currentDate,
+        todos: state.todos,
+        notes: state.notes,
+        meetings: state.meetings
+    }));
+    if (localStorage.getItem('firebaseConfig')) {
+        const debouncedPostFirestoreData = debounce(() => {
+            FirebaseService().postFirestoreData({
+            selectedDate: state.selectedDate,
+            currentDate: state.currentDate,
+            todos: state.todos,
+            notes: state.notes,
+            meetings: state.meetings
+            });
+        }, 10000);
+
+        debouncedPostFirestoreData();
+    }
 });
 
 export default useCalendarState;

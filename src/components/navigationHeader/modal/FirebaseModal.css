@@ -1,0 +1,17 @@
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    background-color: var(--background-color);
+    border: solid 1px var(--text-color);
+    padding: 4rem;
+    padding-top: 2rem;
+    gap: 1rem;
+    top: 4%;
+    right: 10%;
+}
+
+.modal button {
+    padding: 0.5rem 1rem;
+}
