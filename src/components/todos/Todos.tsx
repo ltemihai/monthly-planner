@@ -4,6 +4,7 @@ import './Todos.css'
 import useCalendarState from '../../state/calendarState'
 import { FaPlus } from 'react-icons/fa6'
 import Button from '../shared/button/Button'
+import GptService from '../../services/gptService'
 
 const Todos = () => {
 
@@ -27,7 +28,7 @@ const Todos = () => {
       {todos.length === 0 ? (
         <p>No todos found.</p>
       ) : (
-        <ul className='todos'>
+        <ul className={`todos ${GptService.getInstance().hasApiKey() ? 'half-height' : 'max-height'}`}>
           {todos
             .sort((t1, t2) => (t1.isCompleted === t2.isCompleted) ? 0 : t1.isCompleted ? 1 : -1)
             .map(todo => (

@@ -1,0 +1,28 @@
+.gpt-textarea {
+    height: 25vh;
+    width: 100%;
+}
+
+.gpt-input {
+    width: 100%;
+    height: 24px;
+    margin-bottom: 1rem;
+}
+
+.gpt-input-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+
+}
+
+.gpt-input-container .icon {
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.loading {
+    pointer-events: none;
+    opacity: 0.5;
+}

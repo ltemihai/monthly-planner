@@ -200,7 +200,7 @@ if (localStorage.getItem('firebaseConfig')) {
         FirebaseService().postFirestoreData({
             selectedDate: state.selectedDate,
             currentDate: state.currentDate,
-            todos: state.todos,
+            todos: state.todos, 
             notes: state.notes,
             meetings: state.meetings
         });
