@@ -187,19 +187,25 @@ useCalendarState.subscribe(async (state) => {
         notes: state.notes,
         meetings: state.meetings
     }));
-    if (localStorage.getItem('firebaseConfig')) {
-        const debouncedPostFirestoreData = debounce(() => {
-            FirebaseService().postFirestoreData({
+});
+
+if (localStorage.getItem('firebaseConfig')) {
+    let lastState = {}
+    setInterval(() => {
+        const state = useCalendarState.getState();
+        if (JSON.stringify(state) === JSON.stringify(lastState)) {
+            return;
+        }
+        lastState = state;
+        FirebaseService().postFirestoreData({
             selectedDate: state.selectedDate,
             currentDate: state.currentDate,
             todos: state.todos,
             notes: state.notes,
             meetings: state.meetings
-            });
-        }, 10000);
+        });
+    }, 10000);
+}
 
-        debouncedPostFirestoreData();
-    }
-});
 
 export default useCalendarState;
