@@ -4,9 +4,12 @@ import Todos from '../todos/Todos'
 import './CalendarApp.css'
 import Notes from '../notes/Notes'
 import GptChat from '../gptChat/gptChat'
-import GptService from '../../services/gptService'
+import useGptStore from '../../state/gptState'
 
 const CalendarApp = () => {
+
+  const isUsingGpt = useGptStore().apiKey;
+
   return (
     <div className='calendar-app'>
         <NavigationHeader />
@@ -18,7 +21,7 @@ const CalendarApp = () => {
           <div className='calendar-app__main__column'>
             <Todos></Todos>
             {
-              GptService.getInstance().hasApiKey() && <GptChat></GptChat>
+              isUsingGpt && <GptChat></GptChat>
             }
           </div>
         </main>

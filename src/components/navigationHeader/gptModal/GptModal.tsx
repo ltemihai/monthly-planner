@@ -23,13 +23,13 @@ const GptModal: React.FC<GptModalModalProps> = ({ onClose, onSave }) => {
     return (
         <div className="modal">
             <h2>Connect to ChatGPT</h2>
-            <label>
+            <label className='modal__label'>
                 API Key:
                 <input type="text" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
             </label>
-            <div className="modal-buttons">
-                <button onClick={handleSave}>Save</button>
+            <div className="modal__buttons">
                 <button onClick={onClose}>Cancel</button>
+                <button disabled={!apiKey} onClick={handleSave}>Save</button>
             </div>
         </div>
     );
