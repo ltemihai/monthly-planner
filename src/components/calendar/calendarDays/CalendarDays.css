@@ -19,8 +19,19 @@ td {
 }
 
 .calendarDays__day--current {
-    background-color: var(--current-day-background-color);
-    color: var(--current-day-text-color);
+    color: var(--text-color);
+    position: relative;
+}
+
+.calendarDays__day--current::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top: 10px solid var(--text-color);
+    border-left: 10px solid var(--text-color); 
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid transparent;
 }
 
 .calendarDays__day--selected {

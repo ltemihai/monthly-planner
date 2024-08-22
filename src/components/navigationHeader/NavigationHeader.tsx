@@ -52,11 +52,17 @@ const NavigationHeader = () => {
     <header>
       <h1>The Board</h1>
       <div className='icons'>
-        <FaCloud className='pointer' onClick={() => setShowFirebaseModal(!showFirebaseModal)}></FaCloud>
+        <FaCloud className='pointer' onClick={() => {
+          setShowFirebaseModal(!showFirebaseModal);
+          setShowGptModal(false);
+        }}></FaCloud>
         {showFirebaseModal && (
           <FirebaseModal onClose={() => setShowFirebaseModal(false)} onSave={async (config) => await handleFirebaseSync(config)}></FirebaseModal>
         )}
-        <PiOpenAiLogoLight className='pointer' onClick={() => setShowGptModal(!showGptModal)} />
+        <PiOpenAiLogoLight className='pointer' onClick={() => {
+          setShowGptModal(!showGptModal);
+          setShowFirebaseModal(false);
+        }} />
         {showGptModal && (
           <GptModal onClose={() => setShowGptModal(false)} onSave={async (config) => await handleGptSync(config)}></GptModal>
         )}
