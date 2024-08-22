@@ -35,7 +35,7 @@ const NavigationHeader = () => {
     });
     calendarState.setState(getLocalStorageValue(LocalStorageKeys.CALENDAR_STATE));
     startFirebaseSync();
-  }; 
+  };  
 
   const handleGptSync = async (config: GptModalConfig) => {
     GptService().setApiKey(config.apiKey);
