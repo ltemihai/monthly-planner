@@ -1,0 +1,26 @@
+.toast {
+    display: flex;
+    justify-content: center;
+}
+
+.toast__container {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: fit-content;
+    top: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid var(--text-color);
+    color: #fff;
+    opacity: 0.9;
+    transition: opacity 0.3s ease-in-out;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.toast__icon {
+    display: flex;
+    font-size: 2rem;
+}
