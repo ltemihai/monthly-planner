@@ -3,38 +3,48 @@ import './NavigationHeader.css'
 import { FaCloud } from 'react-icons/fa6';
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { PiOpenAiLogoLight } from "react-icons/pi";
-import FirebaseModal, { FirebaseConfig } from './firebaseModal/FirebaseModal';
-import { FirebaseService, setFirebaseConfig } from '../../services/firebaseService';
-import useCalendarState from '../../state/calendarState';
+import FirebaseModal from './firebaseModal/FirebaseModal';
+import { FirebaseService } from '../../services/firebaseService';
+import useCalendarState, { startFirebaseSync } from '../../state/calendarState';
 import GptModal, { GptModalConfig } from './gptModal/GptModal';
 import GptService from '../../services/gptService';
 import { useEffect } from 'react';
+import { getLocalStorageValue, setLocalStorageValue } from '../../helpers/localStorage.helpers';
+import { LocalStorageKeys } from '../../enums/localStorageKeys.enum';
+import useGptStore from '../../state/gptState';
+import { FirebaseConfig } from '../../types/firebase.types';
 
 const NavigationHeader = () => {
 
   const calendarState = useCalendarState();
+  const gptState = useGptStore();
   const [showFirebaseModal, setShowFirebaseModal] = useState(false);
   const [showGptModal, setShowGptModal] = useState(false);
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const [theme, setTheme] = useState(getLocalStorageValue<string>(LocalStorageKeys.THEME) || 'light');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   const handleFirebaseSync = async (config: FirebaseConfig) => {
-    setFirebaseConfig(config);
-    if (localStorage.getItem('firebaseConfig')) {
-      FirebaseService().saveFirestoreConfig(calendarState);
-    }
-  };
+    await FirebaseService().saveFirestoreConfig(config, {
+      selectedDate: calendarState.selectedDate,
+      currentDate: calendarState.currentDate,
+      todos: calendarState.todos,
+      notes: calendarState.notes
+    });
+    calendarState.setState(getLocalStorageValue(LocalStorageKeys.CALENDAR_STATE));
+    startFirebaseSync();
+  }; 
 
   const handleGptSync = async (config: GptModalConfig) => {
-    GptService.getInstance().setApiKey(config.apiKey);
+    GptService().setApiKey(config.apiKey);
+    gptState.setApiKey(config.apiKey);
   }
 
   const handleTheme = (theme: string) => {
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+    setLocalStorageValue(LocalStorageKeys.THEME, theme);
     setTheme(theme);
   }
 

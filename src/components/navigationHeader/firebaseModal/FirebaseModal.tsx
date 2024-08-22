@@ -1,29 +1,22 @@
 import React, { useState } from 'react';
 import './FirebaseModal.css';
+import { FirebaseConfig } from '../../../types/firebase.types';
 
 interface FirebaseModalProps {
     onClose: () => void;
     onSave: (config: FirebaseConfig) => void;
 }
 
-export interface FirebaseConfig {
-    apiKey: string;
-    authDomain: string;
-    projectId: string;
-    storageBucket: string;
-    messagingSenderId: string;
-    appId: string;
-    measurementId: string;
-}
+
 
 const FirebaseModal: React.FC<FirebaseModalProps> = ({ onClose, onSave }) => {
-    const [apiKey, setApiKey] = useState('');
-    const [authDomain, setAuthDomain] = useState('');
-    const [projectId, setProjectId] = useState('');
-    const [storageBucket, setStorageBucket] = useState('');
-    const [messagingSenderId, setMessagingSenderId] = useState('');
-    const [appId, setAppId] = useState('');
-    const [measurementId, setMeasurementId] = useState('');
+    const [apiKey, setApiKey] = useState('AIzaSyCyTNlG-5xISaYMMDyS2z80Vq9JaLl7bcs');
+    const [authDomain, setAuthDomain] = useState('the-board-a8261.firebaseapp.com');
+    const [projectId, setProjectId] = useState('the-board-a8261');
+    const [storageBucket, setStorageBucket] = useState('the-board-a8261.appspot.com');
+    const [messagingSenderId, setMessagingSenderId] = useState('946105852688');
+    const [appId, setAppId] = useState('1:946105852688:web:b5f577c0a0c58cc3f2fb95');
+    const [measurementId, setMeasurementId] = useState('G-D05CQBRPGW');
 
     const handleSave = () => {
         const config: FirebaseConfig = {

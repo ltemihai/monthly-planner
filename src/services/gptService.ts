@@ -1,29 +1,21 @@
-class GptService {
-    private static instance: GptService;
-    private apiKey: string | null;
+import { LocalStorageKeys } from "../enums/localStorageKeys.enum";
+import { stringifyJson } from "../helpers/json.helpers";
+import { setLocalStorageValue } from "../helpers/localStorage.helpers";
 
-    private constructor() {
-        this.apiKey = localStorage.getItem('gptApiKey');
+export const GptService = (() => {
+    let apiKey: string | null
+
+    const setApiKey = (key: string): void => {
+        apiKey = key;
+        setLocalStorageValue(LocalStorageKeys.GPT_API_KEY, apiKey);
     }
 
-    public static getInstance(): GptService {
-        if (!GptService.instance) {
-            GptService.instance = new GptService();
-        }
-        return GptService.instance;
+    const hasApiKey = (): boolean => {
+        return !!apiKey;
     }
 
-    setApiKey(apiKey: string) {
-        this.apiKey = apiKey;
-        localStorage.setItem('gptApiKey', apiKey);
-    }
-
-    hasApiKey(): boolean {
-        return !!this.apiKey;
-    }
-
-    async generateText(prompt: string): Promise<string> {
-        if (!this.apiKey) {
+    const generateText = async (prompt: string): Promise<string> => {
+        if (!apiKey) {
             throw new Error('API Key not set');
         }
 
@@ -31,9 +23,9 @@ class GptService {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.apiKey}`
+                'Authorization': `Bearer ${apiKey}`
             },
-            body: JSON.stringify({
+            body: stringifyJson({
                 model: 'gpt-4o-mini',
                 messages: [{ role: 'system', content: 'You are a helpful assistant.' }, { role: 'user', content: prompt }],
                 max_tokens: 150
@@ -47,6 +39,12 @@ class GptService {
         const data = await response.json();
         return data.choices[0].message.content;
     }
-}
+
+    return {
+        setApiKey,
+        hasApiKey,
+        generateText
+    };
+})
 
 export default GptService;

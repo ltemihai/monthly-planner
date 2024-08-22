@@ -24,7 +24,7 @@ const GptChat: React.FC = () => {
 
     const handleMessageSend = () => {
         setLoading(true);
-        GptService.getInstance().generateText(inputValue).then((response) => {
+        GptService().generateText(inputValue).then((response) => {
             setTextareaValue(response);
             setInputValue('');
             setLoading(false);
