@@ -10,7 +10,6 @@ const Todos = () => {
 
   const selectedDate = useCalendarState(state => state.selectedDate);
   const todos = useCalendarState(state => state.todos)[selectedDate] || [];
-  const setSyncing = useFirebaseState(state => state.setSyncing);
   const isUsingGpt = useGptStore().apiKey;
 
   const handleOnAddTodoButton = () => {
