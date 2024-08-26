@@ -1,11 +1,23 @@
 import React from 'react';
 import './LoadingSpinner.css';
+import { Tooltip } from 'react-tooltip'
 
-const LoadingSpinner: React.FC = () => {
+interface LoadingSpinnerProps {
+    tooltipText?: string;
+}
+
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ tooltipText }) => {
     return (
-        <div className="loading-spinner">
-            <div className="spinner"></div>
+        <div>
+            <div className="loading-spinner" 
+            data-tooltip-content={tooltipText}
+            data-tooltip-place='bottom' 
+            data-tooltip-id="loading-spinner-tooltip">
+                <div className="spinner"></div>
+            </div>
+            {tooltipText && <Tooltip id="loading-spinner-tooltip"/>}
         </div>
+        
     );
 };
 

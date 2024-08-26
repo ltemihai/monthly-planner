@@ -53,13 +53,13 @@ const NavigationHeader = () => {
 
   return (
     <header>
-      <h1>The Board</h1>
+      <h1>Dayboard</h1>
       <div className='icons'>
         {!Object.keys(firebaseState.config).length ? (
           <FaCloud className='pointer' onClick={() => {
             setShowFirebaseModal(!showFirebaseModal);
             setShowGptModal(false);
-          }}></FaCloud>) : firebaseState.isSyncing && <LoadingSpinner></LoadingSpinner>
+          }}></FaCloud>) : firebaseState.isSyncing && <LoadingSpinner tooltipText='Dayboard is syncing'></LoadingSpinner>
         }
         {showFirebaseModal && (
           <FirebaseModal onClose={() => setShowFirebaseModal(false)} onSave={async (config) => await handleFirebaseSync(config)}></FirebaseModal>

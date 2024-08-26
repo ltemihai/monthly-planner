@@ -145,7 +145,6 @@ if (getLocalStorageValue<FirebaseConfig>(LocalStorageKeys.FIREBASE_CONFIG)) {
 }
 
 useCalendarState.subscribe(async (state) => {
-    console.log(state);
     setLocalStorageValue(LocalStorageKeys.CALENDAR_STATE, {
         selectedDate: state.selectedDate,
         currentDate: state.currentDate,
