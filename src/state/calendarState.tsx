@@ -6,6 +6,7 @@ import { LocalStorageKeys } from '../enums/localStorageKeys.enum';
 import { stringifyJson } from '../helpers/json.helpers';
 import { CalendarModel, CalendarState } from '../types/calendarState.types';
 import { FirebaseConfig } from '../types/firebase.types';
+import useFirebaseState from './firesbaseState';
 
 const useCalendarState = create<CalendarState>((set) => {
     const storedState = getLocalStorageValue<CalendarState>(LocalStorageKeys.CALENDAR_STATE);
@@ -40,17 +41,16 @@ const useCalendarState = create<CalendarState>((set) => {
             })),
         markTodo: (id: string, date: string, isCompleted: boolean) =>
             set((state) => {
-                const todos = state.todos[date];
-                const todoIndex = todos.findIndex((todo) => todo.id === id);
-                console.log(todos, id);
+                const newTodos = state.todos[date];
+                const todoIndex = newTodos.findIndex((todo) => todo.id === id);
                 if (todoIndex !== -1) {
-                    todos[todoIndex].isCompleted = isCompleted;
+                    newTodos[todoIndex].isCompleted = isCompleted;
                 }
 
                 return {
                     todos: {
                         ...state.todos,
-                        [date]: todos,
+                        [date]: newTodos,
                     },
                 };
             }),
@@ -94,45 +94,45 @@ const useCalendarState = create<CalendarState>((set) => {
             })),
         markTodo: (id: string, date: string, isCompleted: boolean) =>
             set((state) => {
-                const todos = state.todos[date];
-                const todoIndex = todos.findIndex((todo) => todo.id === id);
-                console.log(todos, id);
+                const newTodos = state.todos[date];
+                const todoIndex = newTodos.findIndex((todo) => todo.id === id);
                 if (todoIndex !== -1) {
-                    todos[todoIndex].isCompleted = isCompleted;
+                    newTodos[todoIndex].isCompleted = isCompleted;
                 }
 
                 return {
                     todos: {
                         ...state.todos,
-                        [date]: todos,
+                        [date]: newTodos,
                     },
                 };
             }),
-            setState: (calendarState: CalendarModel) => set((state) => {
-                return {
-                    ...state,
-                    ...calendarState
-                }
-            })
+        setState: (calendarState: CalendarModel) => set((state) => {
+            return {
+                ...state,
+                ...calendarState
+            }
+        })
     };
 });
 
 
 export const startFirebaseSync = async () => {
     let lastState = {}
-    setInterval(() => {
+    setInterval(async () => {
         const state = useCalendarState.getState();
         if (stringifyJson(state) === stringifyJson(lastState)) {
             return;
         }
         lastState = state;
-        FirebaseService().postFirestoreData({
+        await FirebaseService().postFirestoreData({
             selectedDate: state.selectedDate,
             currentDate: state.currentDate,
             todos: state.todos,
             notes: state.notes,
         });
-    }, 10000);
+        useFirebaseState.getState().setSyncing(false);
+    }, 5000);
 }
 
 if (getLocalStorageValue<FirebaseConfig>(LocalStorageKeys.FIREBASE_CONFIG)) {
@@ -145,6 +145,7 @@ if (getLocalStorageValue<FirebaseConfig>(LocalStorageKeys.FIREBASE_CONFIG)) {
 }
 
 useCalendarState.subscribe(async (state) => {
+    console.log(state);
     setLocalStorageValue(LocalStorageKeys.CALENDAR_STATE, {
         selectedDate: state.selectedDate,
         currentDate: state.currentDate,

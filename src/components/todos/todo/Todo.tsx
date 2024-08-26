@@ -4,6 +4,7 @@ import { FaCheck } from 'react-icons/fa6';
 import Button from '../../shared/button/Button';
 import useToastStore from '../../../state/toastState';
 import { ToastEnum } from '../../../enums/toast.enum';
+import useFirebaseState from '../../../state/firesbaseState';
 
 type TodoProps = {
   todoId: string;
@@ -18,6 +19,7 @@ const Todo = (props: TodoProps) => {
 
   const handleOnCompleteButton = (text: string) => {
     useCalendarState.getState().markTodo(props.todoId, props.date, true);
+    useFirebaseState.getState().setSyncing(true);
     addToast(`${text} completed!`, ToastEnum.SUCCESS);
   }
 

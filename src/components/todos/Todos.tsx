@@ -4,17 +4,20 @@ import useCalendarState from '../../state/calendarState'
 import { FaPlus } from 'react-icons/fa6'
 import Button from '../shared/button/Button'
 import useGptStore from '../../state/gptState'
+import useFirebaseState from '../../state/firesbaseState'
 
 const Todos = () => {
 
   const selectedDate = useCalendarState(state => state.selectedDate);
   const todos = useCalendarState(state => state.todos)[selectedDate] || [];
+  const setSyncing = useFirebaseState(state => state.setSyncing);
   const isUsingGpt = useGptStore().apiKey;
 
   const handleOnAddTodoButton = () => {
     const todoText = prompt('Enter todo text:');
     if (todoText) {
       useCalendarState.getState().addTodo(selectedDate, todoText);
+      useFirebaseState.getState().setSyncing(true);
     }
   }
 
@@ -24,7 +27,7 @@ const Todos = () => {
         <h2>Todos</h2>
         <Button icon={<FaPlus></FaPlus>} text='Add' onClick={() => handleOnAddTodoButton()} />
       </div>
-       
+
       {todos.length === 0 ? (
         <p className={`todos ${isUsingGpt ? 'half-height' : 'max-height'}`}>No todos found.</p>
       ) : (
@@ -32,12 +35,12 @@ const Todos = () => {
           {todos
             .sort((t1, t2) => (t1.isCompleted === t2.isCompleted) ? 0 : t1.isCompleted ? 1 : -1)
             .map(todo => (
-              <Todo 
+              <Todo
                 key={todo.id}
                 todoId={todo.id}
                 date={todo.date}
-                name={todo.text} 
-                isCompleted={todo.isCompleted} 
+                name={todo.text}
+                isCompleted={todo.isCompleted}
               />
             ))}
         </ul>

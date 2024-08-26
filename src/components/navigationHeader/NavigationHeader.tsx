@@ -13,10 +13,13 @@ import { getLocalStorageValue, setLocalStorageValue } from '../../helpers/localS
 import { LocalStorageKeys } from '../../enums/localStorageKeys.enum';
 import useGptStore from '../../state/gptState';
 import { FirebaseConfig } from '../../types/firebase.types';
+import useFirebaseState from '../../state/firesbaseState';
+import LoadingSpinner from '../shared/loading-spinner/LoadingSpinner';
 
 const NavigationHeader = () => {
 
   const calendarState = useCalendarState();
+  const firebaseState = useFirebaseState();
   const gptState = useGptStore();
   const [showFirebaseModal, setShowFirebaseModal] = useState(false);
   const [showGptModal, setShowGptModal] = useState(false);
@@ -52,10 +55,12 @@ const NavigationHeader = () => {
     <header>
       <h1>The Board</h1>
       <div className='icons'>
-        <FaCloud className='pointer' onClick={() => {
-          setShowFirebaseModal(!showFirebaseModal);
-          setShowGptModal(false);
-        }}></FaCloud>
+        {!Object.keys(firebaseState.config).length ? (
+          <FaCloud className='pointer' onClick={() => {
+            setShowFirebaseModal(!showFirebaseModal);
+            setShowGptModal(false);
+          }}></FaCloud>) : firebaseState.isSyncing && <LoadingSpinner></LoadingSpinner>
+        }
         {showFirebaseModal && (
           <FirebaseModal onClose={() => setShowFirebaseModal(false)} onSave={async (config) => await handleFirebaseSync(config)}></FirebaseModal>
         )}
