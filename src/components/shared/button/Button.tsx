@@ -1,13 +1,13 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import './Button.css';
 
-type ButtonProps = {
+interface ButtonProps {
     text: string;
     onClick: () => void;
     icon?: ReactNode;
 };
 
-const Button = ({ text, onClick, icon }: ButtonProps) => (
+const Button: React.FC<ButtonProps> = ({ text, onClick, icon }: ButtonProps) => (
     <button className='btn pointer'
         onClick={onClick}>
         {icon && <span className='icon'>{icon}</span>}

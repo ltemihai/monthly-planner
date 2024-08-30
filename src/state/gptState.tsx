@@ -9,7 +9,7 @@ type GptState = {
 
 const useGptStore = create<GptState>((set) => ({
     apiKey: '',
-    setApiKey: (apiKey) => set({ apiKey }),
+    setApiKey: (apiKey: string) => set({ apiKey }),
 }));
 
 if(getLocalStorageValue(LocalStorageKeys.GPT_API_KEY)) {

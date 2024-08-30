@@ -46,6 +46,7 @@ const NavigationHeader = () => {
       setShowFirebaseModal(false);
     }
     catch (error) {
+      console.error(error);
       addToast('Error syncing with Firebase!', ToastEnum.ERROR);
     }
   };  
@@ -57,6 +58,7 @@ const NavigationHeader = () => {
       addToast('Dayboard is connected to ChatGPT!', ToastEnum.SUCCESS);
       setShowGptModal(false);
     } catch (error) {
+      console.error(error);
       addToast('Error connecting to ChatGPT!', ToastEnum.ERROR);
     }
   }

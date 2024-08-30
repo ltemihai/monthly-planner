@@ -5,7 +5,7 @@ export const getLocalStorageValue = <T>(key: string): T => {
     return parseJson<T>(value!);
 };
 
-export const setLocalStorageValue = (key: string, value: any): void => {
+export const setLocalStorageValue = (key: string, value: string | object | boolean): void => {
     localStorage.setItem(key, typeof value === 'string' ? value : stringifyJson(value));
 };
 
