@@ -15,12 +15,15 @@ import useGptStore from '../../state/gptState';
 import { FirebaseConfig } from '../../types/firebase.types';
 import useFirebaseState from '../../state/firesbaseState';
 import LoadingSpinner from '../shared/loading-spinner/LoadingSpinner';
+import useToastStore from '../../state/toastState';
+import { ToastEnum } from '../../enums/toast.enum';
 
 const NavigationHeader = () => {
 
   const calendarState = useCalendarState();
   const firebaseState = useFirebaseState();
   const gptState = useGptStore();
+  const addToast = useToastStore((state) => state.addToast);
   const [showFirebaseModal, setShowFirebaseModal] = useState(false);
   const [showGptModal, setShowGptModal] = useState(false);
   const [theme, setTheme] = useState(getLocalStorageValue<string>(LocalStorageKeys.THEME) || 'light');
@@ -30,19 +33,32 @@ const NavigationHeader = () => {
   }, [theme]);
 
   const handleFirebaseSync = async (config: FirebaseConfig) => {
-    await FirebaseService().saveFirestoreConfig(config, {
-      selectedDate: calendarState.selectedDate,
-      currentDate: calendarState.currentDate,
-      todos: calendarState.todos,
-      notes: calendarState.notes
-    });
-    calendarState.setState(getLocalStorageValue(LocalStorageKeys.CALENDAR_STATE));
-    startFirebaseSync();
+    try {
+      await FirebaseService().saveFirestoreConfig(config, {
+        selectedDate: calendarState.selectedDate,
+        currentDate: calendarState.currentDate,
+        todos: calendarState.todos,
+        notes: calendarState.notes
+      });
+      calendarState.setState(getLocalStorageValue(LocalStorageKeys.CALENDAR_STATE));
+      startFirebaseSync();
+      addToast('Dayboard is synced with Firebase!', ToastEnum.SUCCESS);
+      setShowFirebaseModal(false);
+    }
+    catch (error) {
+      addToast('Error syncing with Firebase!', ToastEnum.ERROR);
+    }
   };  
 
   const handleGptSync = async (config: GptModalConfig) => {
-    GptService().setApiKey(config.apiKey);
-    gptState.setApiKey(config.apiKey);
+    try {
+      await GptService().validateApiKey(config.apiKey);
+      gptState.setApiKey(config.apiKey);
+      addToast('Dayboard is connected to ChatGPT!', ToastEnum.SUCCESS);
+      setShowGptModal(false);
+    } catch (error) {
+      addToast('Error connecting to ChatGPT!', ToastEnum.ERROR);
+    }
   }
 
   const handleTheme = (theme: string) => {

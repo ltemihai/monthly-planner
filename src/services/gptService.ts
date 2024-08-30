@@ -14,6 +14,22 @@ export const GptService = (() => {
         return !!apiKey;
     }
 
+    const connectToService = async (apiKey: string): Promise<void> => {
+        const response = await fetch('https://api.openai.com/v1/models', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            }
+        })
+
+        if (!response.ok) {
+            throw new Error('Invalid API Key');
+        }
+
+        setApiKey(apiKey);
+    }
+
     const generateText = async (prompt: string): Promise<string> => {
         if (!apiKey) {
             throw new Error('API Key not set');
@@ -43,7 +59,8 @@ export const GptService = (() => {
     return {
         setApiKey,
         hasApiKey,
-        generateText
+        generateText,
+        validateApiKey: connectToService
     };
 })
 

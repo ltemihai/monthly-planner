@@ -15,7 +15,7 @@ const LandingPage: React.FC = () => {
         <span className='landingPage'>
             <span className='landingPage__container'>
                 <h1>Welcome to the Dayboard!</h1>
-                <div className='landingPage__container__links'><p><a href='https://github.com/ltemihai/monthly-planner'>Github</a></p> <p><a href='https://github.com/ltemihai/monthly-planner/wiki'>Docs</a></p> <p><a href=''>Buy me a coffe</a></p></div>
+                <div className='landingPage__container__links'><p><a href='https://github.com/ltemihai/monthly-planner'>Github</a></p> <p><a href='https://github.com/ltemihai/monthly-planner/wiki'>Docs</a></p> <p><a href='/'>Buy me a coffe</a></p></div>
                 <p>I'll try to keep it short</p>
                 <p>I've build this app for me. All the apps that I've used in the past for capturing ideas (Notion, Obsidian, Todoist, Evernote, OneNote) have way too many features for me.</p>
                 <p>I wish there's a way where I could strip them from functionalities. And that's not possible.</p>
