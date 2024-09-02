@@ -1,18 +1,16 @@
-import NavigationHeader from '../navigationHeader/NavigationHeader'
-import CalendarComponent from '../calendar/CalendarComponent'
-import Todos from '../todos/Todos'
-import './CalendarApp.css'
-import Notes from '../notes/Notes'
-import GptChat from '../gptChat/gptChat'
+import CalendarComponent from '../../components/calendar/CalendarComponent'
+import Todos from '../../components/todos/Todos'
+import './Diary.css'
+import Notes from '../../components/notes/Notes'
+import GptChat from '../../components/gptChat/gptChat'
 import useGptStore from '../../state/gptState'
 
-const CalendarApp = () => {
+const Diary = () => {
 
   const isUsingGpt = useGptStore().apiKey;
 
   return (
     <div className='calendar-app'>
-        <NavigationHeader />
         <main className='calendar-app__main'>
           <div className='calendar-app__main__column'>
             <CalendarComponent></CalendarComponent>
@@ -29,4 +27,4 @@ const CalendarApp = () => {
   ) 
 }
 
-export default CalendarApp
+export default Diary

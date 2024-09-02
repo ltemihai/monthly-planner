@@ -38,7 +38,8 @@ const NavigationHeader = () => {
         selectedDate: calendarState.selectedDate,
         currentDate: calendarState.currentDate,
         todos: calendarState.todos,
-        notes: calendarState.notes
+        notes: calendarState.notes,
+        tasks: calendarState.tasks
       });
       calendarState.setState(getLocalStorageValue(LocalStorageKeys.CALENDAR_STATE));
       startFirebaseSync();

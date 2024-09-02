@@ -1,0 +1,18 @@
+.features-bar {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    top: 8rem;
+}
+
+.features-bar__icon {
+    font-size: 2rem;
+    color: var(--text-color);
+}
+
+.features-bar__container {
+    border: 1px solid var(--text-color);
+    padding: 0.5rem;
+    border-left: none;
+}

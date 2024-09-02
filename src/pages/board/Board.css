@@ -1,0 +1,39 @@
+.board {
+    display: grid;
+    width: 100%;;
+    max-height: 80vh;
+    overflow-y: hidden;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0 auto;
+}
+
+.lane__tasks {
+    overflow-y: auto;
+    max-height: 69vh;
+}
+
+.lane:not(:last-of-type):not(:first-of-type) {
+    border-left: 1px solid var(--text-color);
+    border-right: 1px solid var(--text-color);
+}
+
+.lane__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-color);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--text-color);
+}
+
+.done {
+    text-decoration: line-through;
+}
+
+.task {
+    color: var(--text-color);
+    padding: 1rem;
+    border: 1px solid var(--text-color);
+    margin: 1rem;
+
+}

@@ -23,12 +23,12 @@ const Todos = () => {
   return (
     <section>
       <div className='todos__header'>
-        <h2>Todos</h2>
+        <h2>Daily Ideas</h2>
         <Button icon={<FaPlus></FaPlus>} text='Add' onClick={() => handleOnAddTodoButton()} />
       </div>
 
       {todos.length === 0 ? (
-        <p className={`todos ${isUsingGpt ? 'half-height' : 'max-height'}`}>No todos found.</p>
+        <p className={`todos ${isUsingGpt ? 'half-height' : 'max-height'}`}>Let's inovate a bit :D </p>
       ) : (
         <ul className={`todos ${isUsingGpt ? 'half-height' : 'max-height'}`}>
           {todos

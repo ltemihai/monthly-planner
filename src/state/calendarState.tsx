@@ -15,6 +15,11 @@ const useCalendarState = create<CalendarState>((set) => {
         currentDate: new Date().toDateString(),
         todos: {},
         notes: {},
+        tasks: {
+            todo: [],
+            inProgress: [],
+            done: []
+        },
         setCurrentDate: (date: string) => set({ currentDate: date }),
         setSelectedDate: (date: string) => set({ selectedDate: date }),
         setNotes: (date: string, text: string) =>
@@ -54,6 +59,34 @@ const useCalendarState = create<CalendarState>((set) => {
                     },
                 };
             }),
+        addTask: (id: string, status:string, text: string) =>
+            set((state) => {
+                return {
+                    tasks: {
+                        ...state.tasks,
+                        [status]: [
+                            ...(state.tasks[status] || []),
+                            {
+                                id,
+                                title: text
+                            }
+                        ]
+                    }
+                }
+            }),
+        updateTask: (id: string, oldStatus: string, newStatus: string) => set((state) => {
+            const newTasks = state.tasks[oldStatus].filter((task) => task.id !== id);
+            return {
+                tasks: {
+                    ...state.tasks,
+                    [oldStatus]: newTasks,
+                    [newStatus]: [
+                        ...(state.tasks[newStatus] || []),
+                        state.tasks[oldStatus].find((task) => task.id === id)!
+                    ]
+                }
+            }
+        }),
         setState: (calendarState: CalendarModel) => set((state) => {
             return {
                 ...state,
@@ -107,6 +140,34 @@ const useCalendarState = create<CalendarState>((set) => {
                     },
                 };
             }),
+        addTask: (id: string, status:string, text: string) =>
+            set((state) => {
+                return {
+                    tasks: {
+                        ...state?.tasks,
+                        [status]: [
+                            ...(state?.tasks[status] || []),
+                            {
+                                id,
+                                title: text
+                            }
+                        ]
+                    }
+                }
+            }),
+        updateTask: (id: string, oldStatus: string, newStatus: string) => set((state) => {
+            const newTasks = state.tasks[oldStatus].filter((task) => task.id !== id);
+            return {
+                tasks: {
+                    ...state.tasks,
+                    [oldStatus]: newTasks,
+                    [newStatus]: [
+                        ...(state.tasks[newStatus] || []),
+                        state.tasks[oldStatus].find((task) => task.id === id)!
+                    ]
+                }
+            }
+        }),
         setState: (calendarState: CalendarModel) => set((state) => {
             return {
                 ...state,
@@ -130,6 +191,11 @@ export const startFirebaseSync = async () => {
             currentDate: state.currentDate,
             todos: state.todos,
             notes: state.notes,
+            tasks: {
+                todo: state.tasks.todo,
+                inProgress: state.tasks.inProgress,
+                done: state.tasks.done
+            }
         });
         useFirebaseState.getState().setSyncing(false);
     }, 5000);
@@ -150,6 +216,11 @@ useCalendarState.subscribe(async (state) => {
         currentDate: state.currentDate,
         todos: state.todos,
         notes: state.notes,
+        tasks: {
+            todo: state.tasks.todo,
+            inProgress: state.tasks.inProgress,
+            done: state.tasks.done
+        }
     });
 });
 

@@ -1,6 +1,6 @@
 import { LocalStorageKeys } from "../enums/localStorageKeys.enum";
 import { stringifyJson } from "../helpers/json.helpers";
-import { setLocalStorageValue } from "../helpers/localStorage.helpers";
+import { getLocalStorageValue, setLocalStorageValue } from "../helpers/localStorage.helpers";
 
 export const GptService = (() => {
     let apiKey: string | null
@@ -12,6 +12,10 @@ export const GptService = (() => {
 
     const hasApiKey = (): boolean => {
         return !!apiKey;
+    }
+
+    if (getLocalStorageValue(LocalStorageKeys.GPT_API_KEY)) {
+        setApiKey(getLocalStorageValue(LocalStorageKeys.GPT_API_KEY));
     }
 
     const connectToService = async (apiKey: string): Promise<void> => {
