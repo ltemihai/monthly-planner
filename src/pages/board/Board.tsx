@@ -1,5 +1,5 @@
 import { DragDropContext, Draggable, Droppable, DropResult } from "@hello-pangea/dnd";
-import './board.css'
+import './Board.css'
 import useFirebaseState from "../../state/firesbaseState";
 import useCalendarState from "../../state/calendarState";
 import { FaPlus } from "react-icons/fa6";
