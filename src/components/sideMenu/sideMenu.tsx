@@ -1,7 +1,7 @@
 import {useMenu} from "../../contexts/sideMenu.context.tsx";
 import './sideMenu.css';
 import {SlNotebook} from "react-icons/sl";
-import {CiViewBoard} from "react-icons/ci";
+import {CiSettings, CiViewBoard} from "react-icons/ci";
 import {useNavigate} from "react-router-dom";
 
 export const SideMenu = () => {
@@ -24,7 +24,11 @@ export const SideMenu = () => {
                     <CiViewBoard className=' features-bar__icon'/>
                     <div>Board</div>
                 </div>
+                <div className="sidemenu__entries__row" onClick={() => navigateToLink('/settings')}>
+                    <CiSettings className='features-bar__icon'/>
+                    <div>Settings</div>
+                </div>
             </menu>
         </div>
-        )
-        }
+    )
+}

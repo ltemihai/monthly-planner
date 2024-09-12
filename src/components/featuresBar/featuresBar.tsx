@@ -1,5 +1,5 @@
 import './featuresBar.css'
-import { CiViewBoard } from 'react-icons/ci'
+import {CiSettings, CiViewBoard} from 'react-icons/ci'
 import { SlNotebook } from "react-icons/sl";
 import { useNavigate } from 'react-router-dom';
 
@@ -15,9 +15,9 @@ const FeaturesBar = () => {
             <div onClick={() => navigate('/board')} className='pointer features-bar__container'>
                 <CiViewBoard className=' features-bar__icon' />
             </div>
-            {/* <div onClick={() => navigate('/')} className='pointer features-bar__container'>
-                <PiOpenAiLogoLight className='features-bar__icon' />
-            </div> */}
+            <div onClick={() => navigate('/settings')} className='pointer features-bar__container'>
+                <CiSettings className='features-bar__icon' />
+            </div>
         </div>
     )
 }

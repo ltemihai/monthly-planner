@@ -9,6 +9,7 @@ import Board from "../board/Board.tsx";
 import {useIsMobile} from "../../helpers/layout.helpers.ts";
 import useLandingPage from "../../state/landingPageState.tsx";
 import {useMenu} from "../../contexts/sideMenu.context.tsx";
+import {Settings} from "../settings/Settings.tsx";
 
 export const EntryPage = () => {
 
@@ -27,6 +28,7 @@ export const EntryPage = () => {
                 <Routes>
                     <Route path='/' Component={Diary}/>
                     <Route path='/board' Component={Board}/>
+                    <Route path='/settings' Component={Settings}/>
                 </Routes>
             </div>
             }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './FirebaseModal.css';
-import { FirebaseConfig } from '../../../types/firebase.types';
+import { FirebaseConfig } from '../../../types/firebase.types.ts';
 
 interface FirebaseModalProps {
     onClose: () => void;
