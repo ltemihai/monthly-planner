@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useCallback } from 'react';
+import {createContext, useState, useContext, useCallback, ReactNode} from 'react';
 
 // Create the context
 const MenuContext = createContext({
@@ -7,7 +7,7 @@ const MenuContext = createContext({
 });
 
 // Create the provider component
-export const MenuProvider = ({ children }) => {
+export const MenuProvider = ({ children }: { children: ReactNode }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = useCallback(() => {

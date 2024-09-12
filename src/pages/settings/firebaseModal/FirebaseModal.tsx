@@ -3,7 +3,7 @@ import './FirebaseModal.css';
 import { FirebaseConfig } from '../../../types/firebase.types.ts';
 
 interface FirebaseModalProps {
-    onClose: () => void;
+    onClose?: () => void;
     onSave: (config: FirebaseConfig) => void;
 }
 

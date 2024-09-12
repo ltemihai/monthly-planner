@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './GptModal.css';
 
 interface GptModalModalProps {
-    onClose: () => void;
+    onClose?: () => void;
     onSave: (config: GptModalConfig) => void;
 }
 
