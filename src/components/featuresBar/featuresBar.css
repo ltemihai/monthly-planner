@@ -15,4 +15,5 @@
     border: 1px solid var(--text-color);
     padding: 0.5rem;
     border-left: none;
+    background: var(--background-color);
 }

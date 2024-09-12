@@ -17,6 +17,9 @@ import useFirebaseState from '../../state/firesbaseState';
 import LoadingSpinner from '../shared/loading-spinner/LoadingSpinner';
 import useToastStore from '../../state/toastState';
 import { ToastEnum } from '../../enums/toast.enum';
+import {IoMdMenu} from "react-icons/io";
+import {useMenu} from "../../contexts/sideMenu.context.tsx";
+import {useIsMobile} from "../../helpers/layout.helpers.ts";
 
 const NavigationHeader = () => {
 
@@ -27,6 +30,8 @@ const NavigationHeader = () => {
   const [showFirebaseModal, setShowFirebaseModal] = useState(false);
   const [showGptModal, setShowGptModal] = useState(false);
   const [theme, setTheme] = useState(getLocalStorageValue<string>(LocalStorageKeys.THEME) || 'light');
+  const {toggleMenu } = useMenu();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -72,6 +77,7 @@ const NavigationHeader = () => {
 
   return (
     <header>
+      {isMobile && <IoMdMenu className="pointer" onClick={() => toggleMenu()}/>}
       <h1>Dayboard</h1>
       <div className='icons'>
         {!Object.keys(firebaseState.config).length ? (

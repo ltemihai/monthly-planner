@@ -3,6 +3,7 @@ import './Board.css'
 import useFirebaseState from "../../state/firesbaseState";
 import useCalendarState from "../../state/calendarState";
 import { FaPlus } from "react-icons/fa6";
+import {useMenu} from "../../contexts/sideMenu.context.tsx";
 
 const TaskOrder = ['todo', 'inProgress', 'done'];
 
@@ -20,6 +21,8 @@ export type Tasks = {
 
 const Board = () => {
 
+    const { isMenuOpen } = useMenu();
+
     const tasks = useCalendarState(state => state.tasks || {
         todo: [],
         inProgress: [],
@@ -30,8 +33,8 @@ const Board = () => {
         const taskText = prompt(`Add a ${status.charAt(0).toUpperCase()}${status.slice(1)} task:`);
         if (taskText) {
             const taskId = Date.now().toString();
-            useCalendarState.getState().addTask(taskId, status, taskText);
-            useFirebaseState.getState().setSyncing(true);
+            useCalendarState.getState?.().addTask(taskId, status, taskText);
+            useFirebaseState.getState?.().setSyncing(true);
         }
     }
 
@@ -44,14 +47,14 @@ const Board = () => {
             return;
         }
 
-        useCalendarState.getState().updateTask(tasks[source.droppableId][source.index].id, source.droppableId, destination.droppableId);
-        useFirebaseState.getState().setSyncing(true);
+        useCalendarState.getState?.().updateTask(tasks[source.droppableId][source.index].id, source.droppableId, destination.droppableId);
+        useFirebaseState.getState?.().setSyncing(true);
       };
 
     
 
     return (
-    <div className='calendar-app'>
+    <div className={`calendar-app ${isMenuOpen ? 'no_overflow' : ''}`}>
         <main className='calendar-app__main'>
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className="board">
