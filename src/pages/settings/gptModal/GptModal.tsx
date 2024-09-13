@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './GptModal.css';
 
 interface GptModalModalProps {
-    onClose?: () => void;
     onSave: (config: GptModalConfig) => void;
 }
 
@@ -10,7 +9,7 @@ export interface GptModalConfig {
     apiKey: string;
 }
 
-const GptModal: React.FC<GptModalModalProps> = ({ onClose, onSave }) => {
+const GptModal: React.FC<GptModalModalProps> = ({ onSave }) => {
     const [apiKey, setApiKey] = useState('');
 
     const handleSave = () => {
@@ -28,7 +27,6 @@ const GptModal: React.FC<GptModalModalProps> = ({ onClose, onSave }) => {
                 <input type="text" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
             </label>
             <div className="modal__buttons">
-                <button onClick={onClose}>Cancel</button>
                 <button disabled={!apiKey} onClick={handleSave}>Save</button>
             </div>
         </div>

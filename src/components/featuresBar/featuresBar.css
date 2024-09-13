@@ -14,6 +14,12 @@
 .features-bar__container {
     border: 1px solid var(--text-color);
     padding: 0.5rem;
-    border-left: none;
+    border-left: unset;
     background: var(--background-color);
+}
+
+@media only screen and (min-width: 2100px) {
+    .features-bar__container {
+        border: 1px solid var(--text-color);
+    }
 }

@@ -13,7 +13,7 @@
 .modal__buttons {
     padding-top: 1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
 }
 
 .modal__label {

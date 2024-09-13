@@ -3,13 +3,12 @@ import './FirebaseModal.css';
 import { FirebaseConfig } from '../../../types/firebase.types.ts';
 
 interface FirebaseModalProps {
-    onClose?: () => void;
     onSave: (config: FirebaseConfig) => void;
 }
 
 
 
-const FirebaseModal: React.FC<FirebaseModalProps> = ({ onClose, onSave }) => {
+const FirebaseModal: React.FC<FirebaseModalProps> = ({ onSave }) => {
     const [apiKey, setApiKey] = useState('');
     const [authDomain, setAuthDomain] = useState('');
     const [projectId, setProjectId] = useState('');
@@ -65,7 +64,6 @@ const FirebaseModal: React.FC<FirebaseModalProps> = ({ onClose, onSave }) => {
                 <input type="text" value={measurementId} onChange={(e) => setMeasurementId(e.target.value)} />
             </label>
             <div className="modal__buttons">
-                <button onClick={onClose}>Cancel</button>
                 <button disabled={isButtonDisabled} onClick={handleSave}>Save</button>
             </div>
         </div>

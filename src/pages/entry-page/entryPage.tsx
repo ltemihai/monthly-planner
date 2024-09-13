@@ -1,4 +1,3 @@
-import Toast from "../../components/shared/toast/Toast.tsx";
 import LandingPage from "../landingPage/LandingPage.tsx";
 import FeaturesBar from "../../components/featuresBar/featuresBar.tsx";
 import {SideMenu} from "../../components/sideMenu/sideMenu.tsx";
@@ -10,6 +9,7 @@ import {useIsMobile} from "../../helpers/layout.helpers.ts";
 import useLandingPage from "../../state/landingPageState.tsx";
 import {useMenu} from "../../contexts/sideMenu.context.tsx";
 import {Settings} from "../settings/Settings.tsx";
+import './entryPage.css';
 
 export const EntryPage = () => {
 
@@ -19,8 +19,8 @@ export const EntryPage = () => {
     const landingPageState = useLandingPage();
 
     return (
-        <div>
-            <Toast></Toast>
+
+        <div className="entry-page">
             { isMenuOpen ? <SideMenu ></SideMenu> : <div>
                 {!landingPageState.hasPassedFirstTime && <div className='overlay'><LandingPage/></div>}
                 {!isMobile && <FeaturesBar/>}
