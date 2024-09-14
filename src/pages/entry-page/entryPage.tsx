@@ -10,6 +10,7 @@ import useLandingPage from "../../state/landingPageState.tsx";
 import {useMenu} from "../../contexts/sideMenu.context.tsx";
 import {Settings} from "../settings/Settings.tsx";
 import './entryPage.css';
+import HabitTracker from "../habitTracker/HabitTracker.tsx";
 
 export const EntryPage = () => {
 
@@ -29,6 +30,7 @@ export const EntryPage = () => {
                     <Route path='/' Component={Diary}/>
                     <Route path='/board' Component={Board}/>
                     <Route path='/settings' Component={Settings}/>
+                    <Route path='/habitTracker' Component={HabitTracker}/>
                 </Routes>
             </div>
             }

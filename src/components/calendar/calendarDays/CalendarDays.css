@@ -14,10 +14,6 @@ th, td {
     border: none;
 }
 
-td {
-    cursor: pointer;
-}
-
 .calendarDays__day--current {
     color: var(--text-color);
     position: relative;

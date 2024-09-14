@@ -1,21 +1,21 @@
 import './CalendarDays.css'
 import useCalendarState from '../../../state/calendarState';
-
+import { getDaysInMonth, getNumberOfCalnedarRows, getSkippedDaysInMonth, isSameDate } from '../../../helpers/calendar.helpers';
 const CalendarDays = () => {
 
   const currentDate = new Date(useCalendarState(state => state.currentDate));
   const selectedDate = new Date(useCalendarState(state => state.selectedDate));
   const setSelectedDate = useCalendarState(state => state.setSelectedDate);
-  const daysInMonth = new Date(new Date().getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+  const daysInMonth = getDaysInMonth(currentDate);
 
   const dayCell = (day: number, currentDate: Date, selectedDate: Date) => {
 
-    const isCurrentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toDateString() === new Date().toDateString();
-    const isSelecteDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day).toDateString() === selectedDate.toDateString();
+    const isCurrentDateSelected = isSameDate(currentDate, new Date(), day);
+    const isSelectedDateSelected = isSameDate(selectedDate, selectedDate, day);
 
-    const getDayCellClass = (isCurrentDate: boolean, isSelecteDate: boolean) => {
-      const classes = []
-      if (isCurrentDate) {
+    const getDayCellClass = (isCurrentDateSelected: boolean, isSelecteDate: boolean) => {
+      const classes = ['pointer']
+      if (isCurrentDateSelected) {
         classes.push('calendarDays__day--current ');
       }
       if (isSelecteDate) {
@@ -26,7 +26,7 @@ const CalendarDays = () => {
 
     return <td 
               onClick={() => setSelectedDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toDateString())} 
-              className={getDayCellClass(isCurrentDate, isSelecteDate)}
+              className={getDayCellClass(isCurrentDateSelected, isSelectedDateSelected)}
               key={day}>
                 {day}
             </td>
@@ -36,10 +36,9 @@ const CalendarDays = () => {
  
   const renderDays = () => {
     const rows = [];
-    const numberOfSkippedDays = new Date(new Date().getFullYear(), currentDate.getMonth(), 1).getDay() - 1 < 0 ? 6 : new Date(new Date().getFullYear(), currentDate.getMonth(), 1).getDay() - 1;
+    const numberOfSkippedDays = getSkippedDaysInMonth(currentDate);
 
-    const rowsCount = Math.ceil((daysInMonth + numberOfSkippedDays) / 7);
-
+    const rowsCount = getNumberOfCalnedarRows(daysInMonth, numberOfSkippedDays);
 
     for (let i = 0; i <= rowsCount ; i++) { 
         rows.push(<tr key={i}>

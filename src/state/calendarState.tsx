@@ -20,6 +20,7 @@ const useCalendarState = create<CalendarState>((set) => {
             inProgress: [],
             done: []
         },
+        habits: {},
         setCurrentDate: (date: string) => set({ currentDate: date }),
         setSelectedDate: (date: string) => set({ selectedDate: date }),
         setNotes: (date: string, text: string) =>
@@ -87,6 +88,17 @@ const useCalendarState = create<CalendarState>((set) => {
                 }
             }
         }),
+        markHabit: (habit: string, date: string, isCompleted: boolean) => set((state) => {
+            return {
+                habits: {
+                    ...state.habits,
+                    [habit]: {
+                        ...state.habits[habit],
+                        [date]: isCompleted
+                    }
+                }
+            }
+        }), 
         setState: (calendarState: CalendarModel) => set((state) => {
             return {
                 ...state,
@@ -168,6 +180,17 @@ const useCalendarState = create<CalendarState>((set) => {
                 }
             }
         }),
+        markHabit: (habit: string, date: string, isCompleted: boolean) => set((state) => {
+            return {
+                habits: {
+                    ...state.habits,
+                    [habit]: {
+                        ...state.habits[habit],
+                        [date]: isCompleted
+                    }
+                }
+            }
+        }),
         setState: (calendarState: CalendarModel) => set((state) => {
             return {
                 ...state,
@@ -195,7 +218,8 @@ export const startFirebaseSync = async () => {
                 todo: state.tasks.todo,
                 inProgress: state.tasks.inProgress,
                 done: state.tasks.done
-            }
+            },
+            habits: state.habits
         });
         useFirebaseState.getState().setSyncing(false);
     }, 5000);
@@ -220,7 +244,8 @@ useCalendarState.subscribe(async (state) => {
             todo: state.tasks.todo,
             inProgress: state.tasks.inProgress,
             done: state.tasks.done
-        }
+        },
+        habits: state.habits
     });
 });
 

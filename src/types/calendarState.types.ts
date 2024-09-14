@@ -1,4 +1,5 @@
 import { Tasks } from "../pages/board/Board";
+import { HabitEntries } from "./habitEntries.types";
 import { Todo } from "./todo.types";
 
 export type CalendarState = CalendarModel & {
@@ -9,6 +10,7 @@ export type CalendarState = CalendarModel & {
     updateTask(id: string, oldStatus:string, newStatus: string): void;
     addTodo(date: string, text: string): void;
     markTodo(id: string, date: string, isCompleted: boolean): void;
+    markHabit(habit: string, date: string, isCompleted: boolean): void;
     setState(state: CalendarModel): void;
 };
 
@@ -18,4 +20,5 @@ export type CalendarModel = {
     todos: { [key: string]: Todo[] };
     notes: { [key: string]: string };
     tasks: Tasks;
+    habits: { [key: string]: HabitEntries};
 }
