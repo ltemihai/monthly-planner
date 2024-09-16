@@ -17,13 +17,13 @@ export const EntryPage = () => {
     const isMobile = useIsMobile();
     const { isMenuOpen } = useMenu();
 
-    const landingPageState = useLandingPage();
+    const landingPageState = useLandingPage(state => state.hasPassedFirstTime);
 
     return (
 
         <div className="entry-page">
             { isMenuOpen ? <SideMenu ></SideMenu> : <div>
-                {!landingPageState.hasPassedFirstTime && <div className='overlay'><LandingPage/></div>}
+                {!landingPageState && <div className='overlay'><LandingPage/></div>}
                 {!isMobile && <FeaturesBar/>}
                 <NavigationHeader/>
                 <Routes>

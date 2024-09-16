@@ -3,7 +3,7 @@ import { getLocalStorageValue, setLocalStorageValue } from '../helpers/localStor
 import { LocalStorageKeys } from '../enums/localStorageKeys.enum';
 
 type LandingPageState = LandingPageStateModel & {
-    setHasPassedFirstTime: (isFirstTime: boolean) => void;
+    setHasPassedFirstTime: (hasPassedFirstTime: boolean) => void;
 };
 
 type LandingPageStateModel = {
