@@ -1,4 +1,3 @@
-import React from 'react';
 import {isSameDate} from "../../../../helpers/calendar.helpers.ts";
 import useCalendarState from "../../../../state/calendarState.tsx";
 import useFirebaseState from "../../../../state/firesbaseState.tsx";

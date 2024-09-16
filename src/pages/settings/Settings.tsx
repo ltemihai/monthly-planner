@@ -24,7 +24,8 @@ export const Settings = () => {
                 currentDate: calendarState.currentDate,
                 todos: calendarState.todos,
                 notes: calendarState.notes,
-                tasks: calendarState.tasks
+                tasks: calendarState.tasks,
+                habits: calendarState.habits
             });
             calendarState.setState(getLocalStorageValue(LocalStorageKeys.CALENDAR_STATE));
             startFirebaseSync();
