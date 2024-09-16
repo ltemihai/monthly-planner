@@ -18,15 +18,7 @@
     height: 5rem;
 }
 
-.habitDays__day__number {
-    display: flex;
-    justify-content: end;
-    align-items: end;
-    font-weight: 700;
-    height: 100%;
-}
-
 .habitDays__emptyCell {
-    transition: background-color 0.s ease-out;
+    transition: background-color 0.3s ease-out;
     border: none;
 }

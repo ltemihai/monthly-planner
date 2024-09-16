@@ -1,31 +1,11 @@
-import { getDaysInMonth, getNumberOfCalnedarRows, getSkippedDaysInMonth, isSameDate } from "../../../../helpers/calendar.helpers";
+import { getDaysInMonth, getNumberOfCalnedarRows, getSkippedDaysInMonth } from "../../../../helpers/calendar.helpers";
 import useCalendarState from "../../../../state/calendarState";
 import './HabitCalendarDays.css';
+import HabitDayCell from "../habitDayCell/HabitDayCell.tsx";
 
 const HabitCalendarDays = () => {
     const currentDate = new Date(useCalendarState(state => state.currentDate));
     const daysInMonth = getDaysInMonth(currentDate);
-
-    const dayCell = (day: number, currentDate: Date) => {
-        const isCurrentDateSelected = isSameDate(currentDate, new Date(), day);
-
-        const getDayCellClass = (isCurrentDateSelected: boolean) => {
-            const classes = ['habitDays__day', 'pointer'];
-            if (isCurrentDateSelected) {
-                classes.push('habitDays__day--current ');
-            }
-            return classes.join(' ');
-        }
-        
-
-        return <td 
-                className={getDayCellClass(isCurrentDateSelected)}
-                key={day}>
-                    <div className="habitDays__day__number">
-                        {day}
-                    </div>
-                </td>
-    }
 
     const emptyDayCell = (day: number) => <td key={`${day}-empty`} className='habitDays__emptyCell'></td>
 
@@ -50,7 +30,7 @@ const HabitCalendarDays = () => {
             days.push(emptyDayCell(i));
           }
           for (let i = 1; i <= 7 - numberOfSkippedDays; i++) {
-            days.push(dayCell(i, currentDate));
+            days.push(HabitDayCell(currentDate, i));
           }
         }
         else {
@@ -58,7 +38,7 @@ const HabitCalendarDays = () => {
             if ((i + rowIndex * 7) - numberOfSkippedDays + 1 > daysInMonth) {
               break;
             }
-            days.push(dayCell((i + rowIndex * 7) - numberOfSkippedDays + 1, currentDate));
+            days.push(HabitDayCell(currentDate, (i + rowIndex * 7) - numberOfSkippedDays + 1));
           }
         }
         

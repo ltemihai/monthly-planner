@@ -1,12 +1,12 @@
 import React from 'react';
 import './Toast.css';
 import useToastStore from '../../../state/toastState';
-import { ToastEnum } from '../../../enums/toast.enum';
-import { MdOutlineClose } from 'react-icons/md';
-import { CiSquareInfo, CiWarning } from "react-icons/ci";
-import { FaCheck } from 'react-icons/fa6';
-import { VscError } from "react-icons/vsc";
-
+import {ToastEnum} from '../../../enums/toast.enum';
+import {MdOutlineClose} from 'react-icons/md';
+import {CiSquareInfo, CiWarning} from "react-icons/ci";
+import {FaCheck} from 'react-icons/fa6';
+import {VscError} from "react-icons/vsc";
+import {SlTrophy} from "react-icons/sl";
 
 
 const Toast: React.FC = () => {
@@ -22,7 +22,9 @@ const Toast: React.FC = () => {
             case ToastEnum.ERROR:
                 return <VscError />;
             case ToastEnum.WARNING:
-                return <CiWarning />;
+                return <CiWarning />
+            case ToastEnum.VICTORY:
+                return <SlTrophy />
             default:
                 return <CiSquareInfo />
         }

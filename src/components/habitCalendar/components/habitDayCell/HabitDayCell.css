@@ -1,0 +1,15 @@
+.habitDays__day__number {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    font-weight: 700;
+    height: 100%;
+}
+
+.medal {
+    position: fixed;
+    height: 4rem;
+    width: 4rem;
+    margin-left: -2rem;
+    margin-top: 0.25rem;
+}

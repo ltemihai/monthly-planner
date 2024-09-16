@@ -3,4 +3,5 @@ export enum ToastEnum {
     ERROR = 'error',
     WARNING = 'warning',
     INFO = 'info',
+    VICTORY = 'victory'
 }

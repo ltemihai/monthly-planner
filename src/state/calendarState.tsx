@@ -89,12 +89,23 @@ const useCalendarState = create<CalendarState>((set) => {
             }
         }),
         markHabit: (habit: string, date: string, isCompleted: boolean) => set((state) => {
-            return {
-                habits: {
-                    ...state.habits,
-                    [habit]: {
-                        ...state.habits[habit],
-                        [date]: isCompleted
+            if (state.habits[habit]) {
+                return {
+                    habits: {
+                        ...state.habits,
+                        [habit]: {
+                            ...state.habits[habit],
+                            [date]: isCompleted
+                        }
+                    }
+                }
+            } else {
+                return {
+                    habits: {
+                        ...state.habits,
+                        [habit]: {
+                            [date]: isCompleted
+                        }
                     }
                 }
             }
@@ -181,12 +192,24 @@ const useCalendarState = create<CalendarState>((set) => {
             }
         }),
         markHabit: (habit: string, date: string, isCompleted: boolean) => set((state) => {
-            return {
-                habits: {
-                    ...state.habits,
-                    [habit]: {
-                        ...state.habits[habit],
-                        [date]: isCompleted
+            console.log(habit, date, isCompleted);
+            if (state.habits?.[habit]) {
+                return {
+                    habits: {
+                        ...state.habits,
+                        [habit]: {
+                            ...state.habits[habit],
+                            [date]: isCompleted
+                        }
+                    }
+                }
+            } else {
+                return {
+                    habits: {
+                        ...state.habits,
+                        [habit]: {
+                            [date]: isCompleted
+                        }
                     }
                 }
             }
